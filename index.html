@@ -3,11 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to the Library Management System</h1>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>📚 Library Management</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#books">Books</a></li>
+                <li><a href="#users">Members</a></li>
+                <li><a href="#transactions">Transactions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Digital Library</h2>
+            <p>Manage Books, Members, and Transactions Efficiently</p>
+            <button class="btn btn-primary" onclick="scrollToSection('books')">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Books Section -->
+        <section id="books" class="section">
+            <h2>📖 Books Management</h2>
+            
+            <!-- Add Book Form -->
+            <div class="card">
+                <h3>Add New Book</h3>
+                <form id="bookForm" class="form">
+                    <input type="text" id="bookTitle" placeholder="Book Title" required>
+                    <input type="text" id="bookAuthor" placeholder="Author Name" required>
+                    <input type="text" id="bookISBN" placeholder="ISBN" required>
+                    <input type="number" id="bookQuantity" placeholder="Quantity" min="1" required>
+                    <button type="submit" class="btn btn-success">Add Book</button>
+                </form>
+            </div>
+
+            <!-- Books List -->
+            <div class="card">
+                <h3>All Books</h3>
+                <div class="search-bar">
+                    <input type="text" id="searchBooks" placeholder="🔍 Search books by title or author...">
+                </div>
+                <div id="booksList" class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>ISBN</th>
+                                <th>Available</th>
+                                <th>Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="booksTableBody">
+                            <tr><td colspan="7" class="text-center">No books added yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="section">
+            <h2>👥 Members Management</h2>
+            
+            <!-- Register User Form -->
+            <div class="card">
+                <h3>Register New Member</h3>
+                <form id="userForm" class="form">
+                    <input type="text" id="userName" placeholder="Full Name" required>
+                    <input type="email" id="userEmail" placeholder="Email Address" required>
+                    <input type="tel" id="userPhone" placeholder="Phone Number" required>
+                    <button type="submit" class="btn btn-success">Register Member</button>
+                </form>
+            </div>
+
+            <!-- Users List -->
+            <div class="card">
+                <h3>All Members</h3>
+                <div class="search-bar">
+                    <input type="text" id="searchUsers" placeholder="🔍 Search members by name or email...">
+                </div>
+                <div id="usersList" class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Books Issued</th>
+                                <th>Join Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr><td colspan="7" class="text-center">No members registered yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transactions Section -->
+        <section id="transactions" class="section">
+            <h2>📤 Issue & Return Books</h2>
+            
+            <!-- Issue Book Form -->
+            <div class="card">
+                <h3>Issue Book to Member</h3>
+                <form id="issueForm" class="form">
+                    <select id="issueUserId" required>
+                        <option value="">Select Member</option>
+                    </select>
+                    <select id="issueBookId" required>
+                        <option value="">Select Book</option>
+                    </select>
+                    <input type="number" id="issueQuantity" placeholder="Quantity" min="1" value="1" required>
+                    <button type="submit" class="btn btn-success">Issue Book</button>
+                </form>
+            </div>
+
+            <!-- Return Book Form -->
+            <div class="card">
+                <h3>Return Book</h3>
+                <form id="returnForm" class="form">
+                    <select id="returnUserId" required>
+                        <option value="">Select Member</option>
+                    </select>
+                    <select id="returnBookId" required>
+                        <option value="">Select Book</option>
+                    </select>
+                    <input type="number" id="returnQuantity" placeholder="Quantity" min="1" value="1" required>
+                    <label>
+                        <input type="checkbox" id="isOverdue"> Mark as Overdue
+                    </label>
+                    <input type="number" id="fine" placeholder="Fine Amount (if any)" min="0" step="0.01">
+                    <button type="submit" class="btn btn-success">Return Book</button>
+                </form>
+            </div>
+
+            <!-- Transactions List -->
+            <div class="card">
+                <h3>Transaction History</h3>
+                <div id="transactionsList" class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Book</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Fine</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <tr><td colspan="9" class="text-center">No transactions yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <h2>📊 Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Total Books</h3>
+                    <p id="totalBooks" class="stat-number">0</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Available Books</h3>
+                    <p id="availableBooks" class="stat-number">0</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Total Members</h3>
+                    <p id="totalMembers" class="stat-number">0</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Books Issued</h3>
+                    <p id="booksIssued" class="stat-number">0</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Library Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal for editing -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modalTitle">Edit Details</h3>
+            <form id="editForm" class="form">
+                <input type="hidden" id="editId">
+                <input type="hidden" id="editType">
+                <div id="editFields"></div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content modal-sm">
+            <h3 id="alertTitle">Message</h3>
+            <p id="alertMessage"></p>
+            <button class="btn btn-primary" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
